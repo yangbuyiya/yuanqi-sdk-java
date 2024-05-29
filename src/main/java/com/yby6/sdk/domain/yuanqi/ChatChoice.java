@@ -1,7 +1,9 @@
 package com.yby6.sdk.domain.yuanqi;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +16,8 @@ import java.util.List;
  * @author Yang Shuai
  * Create By 2024/05/29
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class ChatChoice implements Serializable {

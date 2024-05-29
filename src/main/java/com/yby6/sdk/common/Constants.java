@@ -27,6 +27,10 @@ public class Constants {
      * 鉴权
      */
     public final static String AUTHORIZATION = "Authorization";
+    /**
+     * token前缀
+     */
+    public final static String BEARER = "Bearer ";
 
     /**
      * 角色

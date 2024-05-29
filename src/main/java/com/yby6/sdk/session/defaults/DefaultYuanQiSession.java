@@ -1,10 +1,12 @@
 package com.yby6.sdk.session.defaults;
 
 import cn.hutool.http.ContentType;
+import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yby6.sdk.IYuanQiApi;
 import com.yby6.sdk.common.Constants;
+import com.yby6.sdk.domain.yuanqi.ChatChoice;
 import com.yby6.sdk.domain.yuanqi.YuanQiCompletionRequest;
 import com.yby6.sdk.domain.yuanqi.YuanQiCompletionResponse;
 import com.yby6.sdk.session.YuanQiConfiguration;
@@ -12,8 +14,12 @@ import com.yby6.sdk.session.YuanQiSession;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.sse.EventSource;
 import okhttp3.sse.EventSourceListener;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 默认的 YuanQi 会话实现YuanQiSession
@@ -65,6 +71,56 @@ public class DefaultYuanQiSession implements YuanQiSession {
     @Override
     public EventSource chatCompletions(YuanQiCompletionRequest yuanqiCompletionRequest, EventSourceListener eventSourceListener) throws JsonProcessingException {
         return chatCompletions(Constants.NULL, Constants.NULL, yuanqiCompletionRequest, eventSourceListener);
+    }
+
+
+    @Override
+    public CompletableFuture<String> chatCompletions(YuanQiCompletionRequest chatCompletionRequest) throws InterruptedException, JsonProcessingException {
+        // 用于执行异步任务并获取结果
+        CompletableFuture<String> future = new CompletableFuture<>();
+        StringBuffer dataBuffer = new StringBuffer();
+
+        chatCompletions(chatCompletionRequest, new EventSourceListener(){
+            @Override
+            public void onEvent(EventSource eventSource, String id, String type, String data) {
+                if ("[DONE]".equalsIgnoreCase(data)) {
+                    onClosed(eventSource);
+                    future.complete(dataBuffer.toString());
+                }
+
+                YuanQiCompletionResponse chatCompletionResponse = JSONUtil.toBean(data, YuanQiCompletionResponse.class);
+                List<ChatChoice> choices = chatCompletionResponse.getChoices();
+                for (ChatChoice chatChoice : choices) {
+
+                    // 应答完成
+                    String finishReason = chatChoice.getFinishReason();
+                    if ("stop".equalsIgnoreCase(finishReason)) {
+                        onClosed(eventSource);
+                        return;
+                    }
+
+                    // 发送信息
+                    try {
+                        dataBuffer.append(chatChoice.getMessage().getContent());
+                    } catch (Exception e) {
+                        future.completeExceptionally(new RuntimeException("Request closed before completion"));
+                    }
+
+                }
+            }
+
+            @Override
+            public void onClosed(EventSource eventSource) {
+                future.complete(dataBuffer.toString());
+            }
+
+            @Override
+            public void onFailure(EventSource eventSource, Throwable t, Response response) {
+                future.completeExceptionally(new RuntimeException("Request closed before completion"));
+            }
+        });
+
+        return future;
     }
 
     /**

@@ -3,7 +3,9 @@ package com.yby6.sdk.domain.yuanqi;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.yby6.sdk.common.Constants;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
+@NoArgsConstructor
 public class Message implements Serializable {
 
     /**
@@ -28,10 +32,6 @@ public class Message implements Serializable {
      * 问答体
      */
     private List<MessageContent> content;
-
-    public Message() {
-
-    }
 
     private Message(Builder builder) {
         this.role = builder.role;

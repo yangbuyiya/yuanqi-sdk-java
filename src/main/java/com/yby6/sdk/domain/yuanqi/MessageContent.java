@@ -2,7 +2,9 @@ package com.yby6.sdk.domain.yuanqi;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.yby6.sdk.common.Constants;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -15,6 +17,8 @@ import java.io.Serializable;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@AllArgsConstructor
+@NoArgsConstructor
 public class MessageContent implements Serializable {
 
     /**
