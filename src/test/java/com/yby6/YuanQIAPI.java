@@ -12,12 +12,14 @@ import com.yby6.sdk.session.YuanQiConfiguration;
 import com.yby6.sdk.session.YuanQiSession;
 import com.yby6.sdk.session.defaults.DefaultYuanQiSessionFactory;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Response;
 import okhttp3.sse.EventSource;
 import okhttp3.sse.EventSourceListener;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 
@@ -64,28 +66,41 @@ public class YuanQIAPI {
     }
 
 
-    /**
-     * 此对话模型 3.5 接近于官网体验 & 流式应答
-     */
-//    @Test
-//    public void test_chat_completions_stream() throws JsonProcessingException, InterruptedException {
-//        // 1. 创建参数
-//        ChatCompletionRequest chatCompletion = ChatCompletionRequest
-//                .builder()
-//                .stream(true)
-//                .messages(Collections.singletonList(Message.builder().role(Constants.Role.USER).content("写一个java冒泡排序").build()))
-//                .model(ChatCompletionRequest.Model.GPT_3_5_TURBO.getCode())
-//                .build();
-//        // 2. 发起请求
-//        EventSource eventSource = openAiSession.chatCompletions(chatCompletion, new EventSourceListener() {
-//            @Override
-//            public void onEvent(@NotNull EventSource eventSource, String id, String type, @NotNull String data) {
-//                log.info("测试结果：{}", data);
-//            }
-//        });
-//
-//        // 等待
-//        new CountDownLatch(1).await();
-//    }
+    @Test
+    public void test_chat_completions_stream() throws JsonProcessingException, InterruptedException {
+        // 1. 创建参数
+        YuanQiCompletionRequest chatCompletion = YuanQiCompletionRequest
+                .builder()
+                .messages(Collections.singletonList(Message.builder().role(Constants.Role.USER).content(
+                        Collections.singletonList(
+                                MessageContent.builder().type(Constants.Type.TEXT)
+                                        .text("老王,你可以给我解析这个URL吗?  https://yby.com").build()
+                        )
+                ).build()))
+                .userId("rodneyxiong")
+                .assistantId("mmbnqMnLdYz0")
+                .stream(true)
+                .build();
+        // 2. 发起请求
+        EventSource eventSource = yuanQiSession.chatCompletions(chatCompletion, new EventSourceListener() {
+            @Override
+            public void onEvent(@NotNull EventSource eventSource, String id, String type, @NotNull String data) {
+                log.info("测试结果：{}", data);
+            }
+
+            @Override
+            public void onFailure(EventSource eventSource, Throwable t, Response response) {
+                log.error("错误: {0}", t);
+                try {
+                    log.info("{}", response.body().string());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        // 等待
+        new CountDownLatch(1).await();
+    }
 
 }
