@@ -8,6 +8,7 @@
 
 package com.yby6.sdk.session.defaults;
 
+import cn.hutool.core.lang.Assert;
 import cn.hutool.http.ContentType;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -142,11 +143,9 @@ public class DefaultYuanQiSession implements YuanQiSession {
      */
     @Override
     public EventSource chatCompletions(String apiHostByUser, String apiKeyByUser, YuanQiCompletionRequest yuanqiCompletionRequest, EventSourceListener eventSourceListener) throws JsonProcessingException {
-        // 核心参数校验；不对用户的传参做更改，只返回错误信息。
-        if (!yuanqiCompletionRequest.getStream()) {
-            throw new RuntimeException("illegal parameter stream is false!");
-        }
-
+        // 当前为流式模式，如果为false则抛出异常
+        Assert.isFalse(yuanqiCompletionRequest.getStream(), "illegal parameter stream is false!");
+        
         // 动态设置 Host、Key，便于用户传递自己的信息
         String apiHost = Constants.NULL.equals(apiHostByUser) ? yuanQiConfiguration.getApiHost() : apiHostByUser;
         String apiKey = Constants.NULL.equals(apiKeyByUser) ? yuanQiConfiguration.getApiKey() : apiKeyByUser;
@@ -157,7 +156,7 @@ public class DefaultYuanQiSession implements YuanQiSession {
                 // 通过 IYuanQiApi 配置的 POST 接口，用这样的方式从统一的地方获取配置信息
                 .url(apiHost.concat(IYuanQiApi.v1_chat_completions))
                 .addHeader(Constants.AUTHORIZATION, apiKey)
-                // 封装请求参数信息，如果使用了 Fastjson 也可以替换 ObjectMapper 转换对象
+                // 封装请求参数信息
                 .post(RequestBody.create(MediaType.parse(ContentType.JSON.getValue()), new ObjectMapper()
                         .writeValueAsString(yuanqiCompletionRequest)))
                 .build();

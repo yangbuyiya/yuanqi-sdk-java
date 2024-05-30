@@ -16,6 +16,8 @@ import retrofit2.http.*;
 
 /**
  * 以 YuanQi 官网 API 模型，定义接口。
+ * <p>
+ * 这里虽然说是定义接口但是也是http远程请求，根据对应的参数传递
  *
  * @author Yang Shuai
  * Create By 2024/05/29

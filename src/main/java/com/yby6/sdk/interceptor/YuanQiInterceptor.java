@@ -52,9 +52,10 @@ public class YuanQiInterceptor implements Interceptor {
         // 1. 获取原始 Request
         Request original = chain.request();
 
-        // 2. 读取 apiKey；优先使用自己传递的 apiKey
+        // 2. 如果调用者传递了apiKey，则使用调用者传递的apiKey
         String apiKeyByUser = original.header("apiKey");
         String apiKey = null == apiKeyByUser || Constants.NULL.equals(apiKeyByUser) ? apiKeyBySystem : apiKeyByUser;
+        apiKey = apiKey.startsWith(Constants.BEARER) ? apiKey : Constants.BEARER.concat(apiKey);
 
         // 3. 构建 Request
         Request request = original.newBuilder()
