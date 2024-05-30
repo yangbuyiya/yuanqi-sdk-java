@@ -1,3 +1,11 @@
+/*
+ * 您可以更改此项目但请不要删除作者署名谢谢，否则根据中华人民共和国版权法进行处理.
+ * You may change this item but please do not remove the author's signature,
+ * otherwise it will be dealt with according to the Copyright Law of the People's Republic of China.
+ *
+ * yangbuyi Copyright (c) https://yby6.com 2024.
+ */
+
 package com.yby6.sdk.session.defaults;
 
 import cn.hutool.http.ContentType;
@@ -36,9 +44,9 @@ public class DefaultYuanQiSession implements YuanQiSession {
     private final YuanQiConfiguration yuanQiConfiguration;
 
     /**
-     * OpenAI 接口
+     * YuanQi 接口
      */
-    private final IYuanQiApi openAiApi;
+    private final IYuanQiApi yuanQiApi;
     /**
      * 工厂事件
      */
@@ -46,23 +54,23 @@ public class DefaultYuanQiSession implements YuanQiSession {
 
     public DefaultYuanQiSession(YuanQiConfiguration yuanQiConfiguration) {
         this.yuanQiConfiguration = yuanQiConfiguration;
-        this.openAiApi = yuanQiConfiguration.getOpenAiApi();
+        this.yuanQiApi = yuanQiConfiguration.getYuanQiApi();
         this.factory = yuanQiConfiguration.createRequestFactory();
     }
 
     /**
-     * 问答模型 GPT-3.5/4.0
+     * 问答模型元器智能体AI
      *
      * @param yuanqiCompletionRequest 请求信息
      * @return 应答结果
      */
     @Override
     public YuanQiCompletionResponse completions(YuanQiCompletionRequest yuanqiCompletionRequest) {
-        return this.openAiApi.completions(yuanqiCompletionRequest).blockingGet();
+        return this.yuanQiApi.completions(yuanqiCompletionRequest).blockingGet();
     }
 
     /**
-     * 问答模型 GPT-3.5/4.0 & 流式反馈
+     * 问答模型 & 流式反馈
      *
      * @param yuanqiCompletionRequest 请求信息
      * @param eventSourceListener     实现监听；通过监听的 onEvent 方法接收数据
@@ -124,7 +132,7 @@ public class DefaultYuanQiSession implements YuanQiSession {
     }
 
     /**
-     * 问答模型 GPT-3.5/4.0 & 流式反馈
+     * 问答模型 & 流式反馈
      *
      * @param apiHostByUser           自定义host
      * @param apiKeyByUser            自定义Key

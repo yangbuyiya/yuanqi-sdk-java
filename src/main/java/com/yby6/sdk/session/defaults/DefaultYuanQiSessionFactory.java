@@ -1,3 +1,11 @@
+/*
+ * 您可以更改此项目但请不要删除作者署名谢谢，否则根据中华人民共和国版权法进行处理.
+ * You may change this item but please do not remove the author's signature,
+ * otherwise it will be dealt with according to the Copyright Law of the People's Republic of China.
+ *
+ * yangbuyi Copyright (c) https://yby6.com 2024.
+ */
+
 package com.yby6.sdk.session.defaults;
 
 import com.yby6.sdk.IYuanQiApi;
@@ -47,18 +55,17 @@ public class DefaultYuanQiSessionFactory implements YuanQiSessionFactory {
                 .connectTimeout(450, TimeUnit.SECONDS)
                 .writeTimeout(450, TimeUnit.SECONDS)
                 .readTimeout(450, TimeUnit.SECONDS)
-                //.proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 21284)))
                 .build();
 
         // 3. 创建 API 服务
-        IYuanQiApi openAiApi = new Retrofit.Builder()
+        IYuanQiApi yuanQiApi = new Retrofit.Builder()
                 .baseUrl(yuanQiConfiguration.getApiHost())
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build().create(IYuanQiApi.class);
         // 注入配置
-        yuanQiConfiguration.setOpenAiApi(openAiApi);
+        yuanQiConfiguration.setYuanQiApi(yuanQiApi);
         yuanQiConfiguration.setOkHttpClient(okHttpClient);
         return new DefaultYuanQiSession(yuanQiConfiguration);
     }
