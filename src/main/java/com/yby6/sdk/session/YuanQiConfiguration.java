@@ -12,6 +12,7 @@ import com.yby6.sdk.IYuanQiApi;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.sse.EventSource;
 import okhttp3.sse.EventSources;
 import org.jetbrains.annotations.NotNull;
@@ -33,29 +34,32 @@ public class YuanQiConfiguration {
     /**
      * 元气api接口
      */
-    @Setter
     private IYuanQiApi yuanQiApi;
     
     /**
      * 请求客户端
      */
-    @Getter
-    @Setter
     private OkHttpClient okHttpClient;
     
     /**
      * 鉴权密钥
      */
-    @Getter
     @NotNull
     private String apiKey;
     
     /**
      * 请求地址
      */
-    @Getter
     private String apiHost;
 
+    /**
+     * 请求日志打印类型 Level
+     * NONE,
+     * BASIC,
+     * HEADERS,
+     * BODY;
+     */
+    private HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
 
     public EventSource.Factory createRequestFactory() {
         return EventSources.createFactory(okHttpClient);

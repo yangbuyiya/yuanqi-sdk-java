@@ -15,6 +15,8 @@ import com.yby6.sdk.session.YuanQiSession;
 import com.yby6.sdk.session.YuanQiSessionFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -29,11 +31,23 @@ import java.util.concurrent.TimeUnit;
  * Create By 2024/05/29
  */
 public class DefaultYuanQiSessionFactory implements YuanQiSessionFactory {
+    private static final Logger log = LoggerFactory.getLogger(DefaultYuanQiSessionFactory.class);
 
     private final YuanQiConfiguration yuanQiConfiguration;
 
     public DefaultYuanQiSessionFactory(YuanQiConfiguration yuanQiConfiguration) {
         this.yuanQiConfiguration = yuanQiConfiguration;
+    }
+
+    static {
+        // YuanQi-SDK-JAVA
+        log.info("\n" +
+                " __   __                          ___       _              ___     ___    _  __               _    ___   __   __   ___   \n" +
+                " \\ \\ / /  _  _    __ _    _ _    / _ \\     (_)     ___    / __|   |   \\  | |/ /    ___     _ | |  /   \\  \\ \\ / /  /   \\  \n" +
+                "  \\ V /  | +| |  / _` |  | ' \\  | (_) |    | |    |___|   \\__ \\   | |) | | ' <    |___|   | || |  | - |   \\ V /   | - |  \n" +
+                "  _|_|_   \\_,_|  \\__,_|  |_||_|  \\__\\_\\   _|_|_   _____   |___/   |___/  |_|\\_\\   _____   _\\__/   |_|_|   _\\_/_   |_|_|  \n" +
+                "_| \"\"\" |_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|     |_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|     |_|\"\"\"\"\"|_|\"\"\"\"\"|_| \"\"\"\"|_|\"\"\"\"\"| \n" +
+                "\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' \n");
     }
 
     /**
@@ -45,7 +59,7 @@ public class DefaultYuanQiSessionFactory implements YuanQiSessionFactory {
     public YuanQiSession openSession() {
         // 1. 日志配置
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        httpLoggingInterceptor.setLevel(yuanQiConfiguration.getLevel());
 
         // 2. 开启 Http 客户端
         OkHttpClient okHttpClient = new OkHttpClient
