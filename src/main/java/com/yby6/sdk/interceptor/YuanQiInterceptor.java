@@ -60,7 +60,7 @@ public class YuanQiInterceptor implements Interceptor {
         // 3. 构建 Request
         Request request = original.newBuilder()
                 .url(original.url())
-                .header(Header.AUTHORIZATION.getValue(), apiKey)
+                .header(Header.AUTHORIZATION.getValue(),apiKey)
                 .header(Header.CONTENT_TYPE.getValue(), ContentType.JSON.getValue())
                 .header(Constants.X_SOURCE,  Constants.OPENAPI)
                 .method(original.method(), original.body())

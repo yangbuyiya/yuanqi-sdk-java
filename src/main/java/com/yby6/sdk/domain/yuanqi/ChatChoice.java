@@ -33,8 +33,19 @@ public class ChatChoice implements Serializable {
 
     @JsonProperty("finish_reason")
     private String finishReason;
+
+    /**
+     * 普通使用
+     */
     @JsonProperty("message")
     private MessageDTO message;
+
+    /**
+     * 流试使用
+     */
+    @JsonProperty("delta")
+    private MessageDTO.StepsDTO delta;
+
 
     @NoArgsConstructor
     @Data
@@ -52,9 +63,12 @@ public class ChatChoice implements Serializable {
         @JsonProperty("content")
         private String content;
 
-
+        /**
+         * 不是流试返回参数的内容
+         */
         @JsonProperty("steps")
         private List<StepsDTO> steps;
+
 
         @NoArgsConstructor
         @Data

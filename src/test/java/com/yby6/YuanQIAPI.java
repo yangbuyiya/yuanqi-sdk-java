@@ -8,14 +8,11 @@
 
 package com.yby6;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yby6.sdk.common.Constants;
-import com.yby6.sdk.domain.yuanqi.Message;
-import com.yby6.sdk.domain.yuanqi.MessageContent;
-import com.yby6.sdk.domain.yuanqi.YuanQiCompletionRequest;
-import com.yby6.sdk.domain.yuanqi.YuanQiCompletionResponse;
+import com.yby6.sdk.domain.yuanqi.*;
 import com.yby6.sdk.session.YuanQiConfiguration;
 import com.yby6.sdk.session.YuanQiSession;
 import com.yby6.sdk.session.defaults.DefaultYuanQiSessionFactory;
@@ -27,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 @Slf4j
@@ -41,7 +38,7 @@ public class YuanQIAPI {
         // 1. 配置文件
         YuanQiConfiguration yuanQiConfiguration = new YuanQiConfiguration();
         yuanQiConfiguration.setApiHost("https://yuanqi.tencent.com/openapi/");
-        yuanQiConfiguration.setApiKey("Bearer zajBIuOU0XC0xb8kbP0SXDlR0aoEUESV");
+        yuanQiConfiguration.setApiKey("你的智能体");
         // 2. 会话工厂
         DefaultYuanQiSessionFactory factory = new DefaultYuanQiSessionFactory(yuanQiConfiguration);
         // 3. 开启会话
@@ -49,6 +46,40 @@ public class YuanQIAPI {
         log.info("openAiSession:{}", yuanQiSession);
     }
 
+    /**
+     * 返回参数:
+     * {
+     * "id": "43b88ac7daab69d28e6320ae9ea39dc5",
+     * "created": 1717177745,
+     * "choices": [
+     * {
+     * "finish_reason": "stop",
+     * "message": {
+     * "role": "assistant",
+     * "content": "我是隔壁老王，一个无所不能的智能体，分分钟秒掉问题！",
+     * "steps": [
+     * {
+     * "role": "assistant",
+     * "content": "我是隔壁老王，一个无所不能的智能体，分分钟秒掉问题！",
+     * "usage": {
+     * "prompt_tokens": 252,
+     * "completion_tokens": 15,
+     * "total_tokens": 267
+     * },
+     * "time_cost": 1718
+     * }
+     * ]
+     * }
+     * }
+     * ],
+     * "assistant_id": "mmbnqMnLdYz0",
+     * "usage": {
+     * "prompt_tokens": 252,
+     * "completion_tokens": 15,
+     * "total_tokens": 267
+     * }
+     * }
+     */
     @Test
     public void test_chat_completions() {
         // 1. 创建参数
@@ -73,7 +104,28 @@ public class YuanQIAPI {
         });
     }
 
-
+    /**
+     * 流试返回参数:
+     * {
+     * "id": "82956d810a0ff9b413c8bf924c2190c3",
+     * "created": 1717177832,
+     * "choices": [
+     * {
+     * "delta": {
+     * "role": "assistant",
+     * "content": "我是",
+     * "time_cost": 0
+     * }
+     * }
+     * ],
+     * "assistant_id": "mmbnqMnLdYz0",
+     * "usage": {
+     * "prompt_tokens": 0,
+     * "completion_tokens": 0,
+     * "total_tokens": 0
+     * }
+     * }
+     */
     @Test
     public void test_chat_completions_stream() throws JsonProcessingException, InterruptedException {
         // 1. 创建参数
@@ -93,20 +145,42 @@ public class YuanQIAPI {
         EventSource eventSource = yuanQiSession.chatCompletions(chatCompletion, new EventSourceListener() {
             @Override
             public void onEvent(@NotNull EventSource eventSource, String id, String type, @NotNull String data) {
-                log.info("测试结果：{}", data);
+                try {
+                    if (data.equals("[DONE]")) {
+                        return;
+                    }
+
+                    YuanQiCompletionResponse response = JSONUtil.toBean(data, YuanQiCompletionResponse.class);
+
+                    List<ChatChoice> choices = response.getChoices();
+                    for (ChatChoice chatChoice : choices) {
+                        final ChatChoice.MessageDTO.StepsDTO delta = chatChoice.getDelta();
+
+                        // 应答完成
+                        String finishReason = chatChoice.getFinishReason();
+                        if (StrUtil.isNotBlank(finishReason) && "stop".equals(finishReason)) {
+                            break;
+                        }
+
+                        // 发送信息
+                        try {
+                            if (null != delta) {
+                                log.info(delta.getContent());
+                            }
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override
             public void onFailure(EventSource eventSource, Throwable t, Response response) {
-                log.error("错误: {0}", t);
-                try {
-                    log.info("{}", response.body().string());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                log.error("错误: {}, {}", response.code(), t.getMessage());
             }
         });
-
         // 等待
         new CountDownLatch(1).await();
     }
