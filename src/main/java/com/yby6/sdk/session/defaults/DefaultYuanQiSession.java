@@ -144,7 +144,7 @@ public class DefaultYuanQiSession implements YuanQiSession {
     @Override
     public EventSource chatCompletions(String apiHostByUser, String apiKeyByUser, YuanQiCompletionRequest yuanqiCompletionRequest, EventSourceListener eventSourceListener) throws JsonProcessingException {
         // 当前为流式模式，如果为false则抛出异常
-        Assert.isFalse(yuanqiCompletionRequest.getStream(), "illegal parameter stream is false!");
+        Assert.isTrue(yuanqiCompletionRequest.getStream(), "illegal parameter stream is false!");
         
         // 动态设置 Host、Key，便于用户传递自己的信息
         String apiHost = Constants.NULL.equals(apiHostByUser) ? yuanQiConfiguration.getApiHost() : apiHostByUser;
