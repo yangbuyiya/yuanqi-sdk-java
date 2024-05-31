@@ -6,11 +6,11 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk.interceptor;
+package com.yby6.yuanqi.sdk.interceptor;
 
 import cn.hutool.http.ContentType;
 import cn.hutool.http.Header;
-import com.yby6.sdk.common.Constants;
+import com.yby6.yuanqi.sdk.common.Constants;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,6 +34,8 @@ public class YuanQiInterceptor implements Interceptor {
 
     /**
      * 访问授权接口的认证 Token
+     *
+     * @param apiKeyBySystem 系统提供api密钥
      */
 
     public YuanQiInterceptor(String apiKeyBySystem) {

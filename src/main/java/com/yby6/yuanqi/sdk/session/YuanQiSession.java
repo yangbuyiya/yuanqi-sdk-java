@@ -6,12 +6,12 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk.session;
+package com.yby6.yuanqi.sdk.session;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.yby6.sdk.domain.yuanqi.YuanQiCompletionRequest;
-import com.yby6.sdk.domain.yuanqi.YuanQiCompletionResponse;
+import com.yby6.yuanqi.sdk.domain.yuanqi.YuanQiCompletionRequest;
+import com.yby6.yuanqi.sdk.domain.yuanqi.YuanQiCompletionResponse;
 import okhttp3.sse.EventSource;
 import okhttp3.sse.EventSourceListener;
 
@@ -23,7 +23,6 @@ import java.util.concurrent.CompletableFuture;
  *
  * @author Yang Shuai
  * Create By 2024/05/29
- * @date 2024/05/30
  */
 public interface YuanQiSession {
     
@@ -37,7 +36,7 @@ public interface YuanQiSession {
     YuanQiCompletionResponse completions(YuanQiCompletionRequest yuanqiCompletionRequest);
     
     /**
-     * 简单问答 & 流式
+     * 简单问答 - 流式
      *
      * @param yuanqiCompletionRequest 元气完成请求
      * @param eventSourceListener     事件源侦听器
@@ -45,19 +44,19 @@ public interface YuanQiSession {
      * @throws JsonProcessingException json处理异常
      */
     EventSource chatCompletions(YuanQiCompletionRequest yuanqiCompletionRequest, EventSourceListener eventSourceListener) throws JsonProcessingException;
-    
+
     /**
-     * 简单问答 & 流式 CompletableFuture
+     * 简单问答 - 流式 CompletableFuture
      *
      * @param chatCompletionRequest 聊天完成请求
-     * @return {@link CompletableFuture}<{@link String}>
+     * @return {@code CompletableFuture<String>}
      * @throws InterruptedException    中断异常
      * @throws JsonProcessingException json处理异常
      */
     CompletableFuture<String> chatCompletions(YuanQiCompletionRequest chatCompletionRequest) throws InterruptedException, JsonProcessingException;
     
     /**
-     * 简单问答 & 流式 & 自定义api
+     * 简单问答 - 流式 - 自定义api
      *
      * @param apiHostByUser           用户提供api主机
      * @param apiKeyByUser            用户提供api密钥

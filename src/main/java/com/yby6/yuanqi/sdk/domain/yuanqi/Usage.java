@@ -6,7 +6,7 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk.domain.yuanqi;
+package com.yby6.yuanqi.sdk.domain.yuanqi;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;

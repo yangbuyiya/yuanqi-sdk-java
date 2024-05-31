@@ -6,7 +6,7 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk.common;
+package com.yby6.yuanqi.sdk.common;
 
 
 import lombok.Getter;

@@ -6,11 +6,11 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk.domain.yuanqi;
+package com.yby6.yuanqi.sdk.domain.yuanqi;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.yby6.sdk.common.Constants;
+import com.yby6.yuanqi.sdk.common.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

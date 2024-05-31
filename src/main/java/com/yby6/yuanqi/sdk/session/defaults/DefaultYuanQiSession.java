@@ -6,20 +6,20 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk.session.defaults;
+package com.yby6.yuanqi.sdk.session.defaults;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.http.ContentType;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yby6.sdk.IYuanQiApi;
-import com.yby6.sdk.common.Constants;
-import com.yby6.sdk.domain.yuanqi.ChatChoice;
-import com.yby6.sdk.domain.yuanqi.YuanQiCompletionRequest;
-import com.yby6.sdk.domain.yuanqi.YuanQiCompletionResponse;
-import com.yby6.sdk.session.YuanQiConfiguration;
-import com.yby6.sdk.session.YuanQiSession;
+import com.yby6.yuanqi.sdk.IYuanQiApi;
+import com.yby6.yuanqi.sdk.common.Constants;
+import com.yby6.yuanqi.sdk.domain.yuanqi.ChatChoice;
+import com.yby6.yuanqi.sdk.domain.yuanqi.YuanQiCompletionRequest;
+import com.yby6.yuanqi.sdk.domain.yuanqi.YuanQiCompletionResponse;
+import com.yby6.yuanqi.sdk.session.YuanQiConfiguration;
+import com.yby6.yuanqi.sdk.session.YuanQiSession;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -71,7 +71,7 @@ public class DefaultYuanQiSession implements YuanQiSession {
     }
 
     /**
-     * 问答模型 & 流式反馈
+     * 问答模型 - 流式反馈
      *
      * @param yuanqiCompletionRequest 请求信息
      * @param eventSourceListener     实现监听；通过监听的 onEvent 方法接收数据
@@ -133,7 +133,7 @@ public class DefaultYuanQiSession implements YuanQiSession {
     }
 
     /**
-     * 问答模型 & 流式反馈
+     * 问答模型 - 流式反馈
      *
      * @param apiHostByUser           自定义host
      * @param apiKeyByUser            自定义Key

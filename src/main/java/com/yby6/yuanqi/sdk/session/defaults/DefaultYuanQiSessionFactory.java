@@ -6,13 +6,13 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk.session.defaults;
+package com.yby6.yuanqi.sdk.session.defaults;
 
-import com.yby6.sdk.IYuanQiApi;
-import com.yby6.sdk.interceptor.YuanQiInterceptor;
-import com.yby6.sdk.session.YuanQiConfiguration;
-import com.yby6.sdk.session.YuanQiSession;
-import com.yby6.sdk.session.YuanQiSessionFactory;
+import com.yby6.yuanqi.sdk.IYuanQiApi;
+import com.yby6.yuanqi.sdk.interceptor.YuanQiInterceptor;
+import com.yby6.yuanqi.sdk.session.YuanQiConfiguration;
+import com.yby6.yuanqi.sdk.session.YuanQiSession;
+import com.yby6.yuanqi.sdk.session.YuanQiSessionFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.slf4j.Logger;

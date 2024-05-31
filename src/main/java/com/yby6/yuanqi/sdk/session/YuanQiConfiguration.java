@@ -6,9 +6,9 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk.session;
+package com.yby6.yuanqi.sdk.session;
 
-import com.yby6.sdk.IYuanQiApi;
+import com.yby6.yuanqi.sdk.IYuanQiApi;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;

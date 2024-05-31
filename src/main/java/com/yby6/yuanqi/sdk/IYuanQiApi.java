@@ -6,11 +6,11 @@
  * yangbuyi Copyright (c) https://yby6.com 2024.
  */
 
-package com.yby6.sdk;
+package com.yby6.yuanqi.sdk;
 
 
-import com.yby6.sdk.domain.yuanqi.YuanQiCompletionRequest;
-import com.yby6.sdk.domain.yuanqi.YuanQiCompletionResponse;
+import com.yby6.yuanqi.sdk.domain.yuanqi.YuanQiCompletionRequest;
+import com.yby6.yuanqi.sdk.domain.yuanqi.YuanQiCompletionResponse;
 import io.reactivex.Single;
 import retrofit2.http.*;
 
