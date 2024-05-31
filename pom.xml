@@ -23,6 +23,31 @@
         <retrofit2.version>2.9.0</retrofit2.version>
         <slf4j.version>2.0.6</slf4j.version>
     </properties>
+    <issueManagement>
+        <system>Github Issue</system>
+        <url>https://github.com/yangbuyiya/yuanqi-sdk-java/issues</url>
+    </issueManagement>
+    <developers>
+        <developer>
+            <name>杨不易呀</name>
+            <email>1692700664@qq.com</email>
+        </developer>
+    </developers>
+
+    <!--源代码管理-->
+    <scm>
+        <connection>scm:git:https://github.com/yangbuyiya/yuanqi-sdk-java.git</connection>
+        <developerConnection>scm:git:https://github.com/yangbuyiya/yuanqi-sdk-java.git</developerConnection>
+        <url>https://github.com/yangbuyiya/yuanqi-sdk-java.git</url>
+    </scm>
+    <!--授权 （这是Apache License-2 根据你自己的开源协议来）-->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>
@@ -114,7 +139,64 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <!-- 中央仓库 -->
+            <!--sonatype发布插件-->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                </configuration>
+            </plugin>
+            <!-- 生成source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>oss</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 工程文件自动签名-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.3</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
 
 </project>
