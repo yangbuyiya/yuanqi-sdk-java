@@ -13,16 +13,16 @@
     <groupId>com.yby6</groupId>
     <artifactId>yuanqi-sdk-java</artifactId>
     <version>1.0</version>
-    <name>yuanqi-sdk-java</name>
+    <name>${project.artifactId}</name>
     <description>
-        腾讯元器智能体 API Java SDK
+        腾讯元器智能体 API Java SDK 是对腾讯元器智能体的API进行了封装，方便Java开发者接入系统调用。
     </description>
+    <url>https://gitee.com/yangbuyi/yuanqi-sdk-java</url>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <retrofit2.version>2.9.0</retrofit2.version>
         <slf4j.version>2.0.6</slf4j.version>
     </properties>
-
 
     <dependencies>
         <dependency>
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.24</version>
+            <version>5.8.25</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -96,7 +96,7 @@
     </dependencies>
 
     <build>
-        <finalName>chatgpt-sdk-java</finalName>
+        <finalName>yuanqi-sdk-java</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
