@@ -71,6 +71,23 @@ public class DefaultYuanQiSession implements YuanQiSession {
     }
 
     /**
+     * 问答模型元器智能体AI 返回字符串
+     *
+     * @param yuanqiCompletionRequest 请求信息
+     * @return {@code String}
+     */
+    @Override
+    public String completionsString(YuanQiCompletionRequest yuanqiCompletionRequest) {
+       StringBuilder builder = new StringBuilder();
+       YuanQiCompletionResponse yuanQiCompletionResponse = this.yuanQiApi.completions(yuanqiCompletionRequest).blockingGet();
+        for (ChatChoice choice : yuanQiCompletionResponse.getChoices()) {
+            final String content = choice.getMessage().getContent();
+            builder.append(content);
+        }
+        return builder.toString();
+    }
+
+    /**
      * 问答模型 - 流式反馈
      *
      * @param yuanqiCompletionRequest 请求信息

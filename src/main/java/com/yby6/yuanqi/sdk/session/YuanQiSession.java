@@ -34,7 +34,15 @@ public interface YuanQiSession {
      * @return {@link YuanQiCompletionResponse}
      */
     YuanQiCompletionResponse completions(YuanQiCompletionRequest yuanqiCompletionRequest);
-    
+
+    /**
+     * 简单问答返回String
+     *
+     * @param yuanqiCompletionRequest 元气完成请求
+     * @return {@code String}
+     */
+    String completionsString(YuanQiCompletionRequest yuanqiCompletionRequest);
+
     /**
      * 简单问答 - 流式
      *

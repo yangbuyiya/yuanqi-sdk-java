@@ -106,6 +106,30 @@ public class YuanQIAPI {
     }
 
     /**
+     * 测试聊天完成字符串
+     */
+    @Test
+    public void test_chat_completions_string() {
+        // 1. 创建参数
+        YuanQiCompletionRequest chatCompletion = YuanQiCompletionRequest
+                .builder()
+                .messages(Collections.singletonList(Message.builder().role(Constants.Role.USER).content(
+                        Collections.singletonList(
+                                MessageContent.builder().type(Constants.Type.TEXT)
+                                        .text("你是谁啊?").build()
+                        )
+                ).build()))
+                .userId("rodneyxiong")
+                .assistantId("mmbnqMnLdYz0")
+                .stream(false)
+                .build();
+        // 2. 发起请求
+        String yuanQiCompletionResponse = yuanQiSession.completionsString(chatCompletion);
+        // 3. 解析结果
+        log.info("消息: {}",yuanQiCompletionResponse);
+    }
+
+    /**
      * 流试返回参数:
      * {
      * "id": "82956d810a0ff9b413c8bf924c2190c3",
