@@ -9,6 +9,7 @@
 package com.yby6.yuanqi.sdk.domain.yuanqi;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ import java.util.List;
  * Create By 2024/05/29
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -47,6 +49,7 @@ public class ChatChoice implements Serializable {
     private MessageDTO.StepsDTO delta;
 
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     @NoArgsConstructor
     @Data
     public static class MessageDTO {
@@ -70,6 +73,7 @@ public class ChatChoice implements Serializable {
         private List<StepsDTO> steps;
 
 
+        @JsonIgnoreProperties(ignoreUnknown = true)
         @NoArgsConstructor
         @Data
         public static class StepsDTO {
@@ -82,6 +86,7 @@ public class ChatChoice implements Serializable {
             @JsonProperty("time_cost")
             private Integer timeCost;
 
+            @JsonIgnoreProperties(ignoreUnknown = true)
             @NoArgsConstructor
             @Data
             public static class UsageDTO {

@@ -9,6 +9,7 @@
 package com.yby6.yuanqi.sdk.domain.yuanqi;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ import java.util.List;
  * Create By 2024/05/29
  */
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class YuanQiCompletionResponse implements Serializable {
 
     /** ID */
