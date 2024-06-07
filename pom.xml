@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yby6.yuanqi</groupId>
     <artifactId>yuanqi-sdk-java</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <name>${project.artifactId}</name>
     <description>
         腾讯元器智能体 API Java SDK 是对腾讯元器智能体的API进行了封装，方便Java开发者接入系统调用。
