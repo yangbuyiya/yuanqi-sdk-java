@@ -39,10 +39,16 @@ public class MessageContent implements Serializable {
      * 问题
      */
     private String text;
+    
+    /**
+     * 当type为file_url时使用，表示具体的文件内容
+     */
+    private FileUrl fileUrl;
 
     private MessageContent(Builder builder) {
         this.type = builder.type;
         this.text = builder.text;
+        this.fileUrl = builder.fileUrl;
     }
 
     public static Builder builder() {
@@ -60,6 +66,11 @@ public class MessageContent implements Serializable {
          * 问题
          */
         private String text;
+        
+        /**
+         * 当type为file_url时使用，表示具体的文件内容
+         */
+        private FileUrl fileUrl;
 
         public Builder() {
         }
@@ -71,6 +82,11 @@ public class MessageContent implements Serializable {
 
         public Builder text(String type) {
             this.text = type;
+            return this;
+        }
+        
+        public Builder fileUrl(FileUrl fileUrl) {
+            this.fileUrl = fileUrl;
             return this;
         }
 

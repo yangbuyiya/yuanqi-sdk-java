@@ -22,6 +22,12 @@ import java.util.List;
 /**
  * 对话信息
  *
+ * <p>
+ *     元器普通问答和流式问答返回的结果是不一样的
+ *     message 普通
+ *     delta 流试
+ * </p>
+ *
  * @author Yang Shuai
  * Create By 2024/05/29
  */

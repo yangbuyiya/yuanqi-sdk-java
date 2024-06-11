@@ -10,70 +10,67 @@ package com.yby6.yuanqi.sdk.domain.yuanqi;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.yby6.yuanqi.sdk.common.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
 
-
-/**
- * 信息描述
- *
- * @author Yang Shuai
- * Create By 2024/05/29
- */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message implements Serializable {
-
+public class FileUrl implements Serializable {
+    
     /**
-     * 角色, 'user' 或者'assistant', 在message中必须是user与assistant交替(一问一答)
+     * 文件的类型，例如image/video/audio/pdf/doc/txt等
      */
-    private String role;
-
+    private String type;
+    
     /**
-     * 会话内容, 长度最多为40, 按对话时间从旧到新在数组中排列
+     * 文件的url
      */
-    private List<MessageContent> content;
-
-    private Message(Builder builder) {
-        this.role = builder.role;
-        this.content = builder.content;
+    private String image_url;
+    
+    public FileUrl(Builder builder) {
+        this.type = builder.type;
+        this.image_url = builder.url;
     }
-
+    
+    
     public static Builder builder() {
         return new Builder();
     }
-
+    
     /**
      * 建造者模式
      */
     public static final class Builder {
-
-        private String role;
-        private List<MessageContent> content;
-
+        
+        private String type;
+        
+        /**
+         * 文件的url
+         */
+        private String url;
+        
         public Builder() {
         }
-
-        public Builder role(Constants.Role role) {
-            this.role = role.getCode();
+        
+        public Builder type(String type) {
+            this.type = type;
             return this;
         }
-
-        public Builder content(List<MessageContent> content) {
-            this.content = content;
+        
+        public Builder url(String url) {
+            this.url = url;
             return this;
         }
-
-        public Message build() {
-            return new Message(this);
+        
+        public FileUrl build() {
+            return new FileUrl(this);
         }
     }
-
+    
+    
 }

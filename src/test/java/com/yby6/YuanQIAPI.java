@@ -126,7 +126,7 @@ public class YuanQIAPI {
         // 2. 发起请求
         String yuanQiCompletionResponse = yuanQiSession.completionsString(chatCompletion);
         // 3. 解析结果
-        log.info("消息: {}",yuanQiCompletionResponse);
+        log.info("消息: {}", yuanQiCompletionResponse);
     }
 
     /**
@@ -209,5 +209,56 @@ public class YuanQIAPI {
         // 等待
         new CountDownLatch(1).await();
     }
+    
+    /**
+     * 多模态测试
+     */
+    @Test
+    public void test_chat_completions_many_stream() throws JsonProcessingException, InterruptedException {
 
+
+
+        // 机器人
+        Message message = Message.builder()
+                .role(Constants.Role.USER)
+                .content(
+                        
+                        List.of(
+                                MessageContent.builder()
+                                        .type(Constants.Type.TEXT)
+                                        .text("把这张图换成沙漠背景")
+                                        .build(),
+                                
+                                MessageContent.builder()
+                                        .type(Constants.Type.IMG)
+                                        .fileUrl(
+                                                FileUrl.builder()
+                                                        .type("image")
+                                                        .url("https://cdn.yuanqi.tencent.com/hunyuan_open/default/c6df61a5ce7ec829f31108acd9a5fb6d.png?sign=1718090186-1718090186-0-a56dc47eb102fb044b96e985b7a8acaa8680d11f1bbd2d4f44469aa751016f2f")
+                                                        .build()
+                                        )
+                                        .build()
+                        )
+                
+                )
+                .build();
+        
+        
+        // 1. 创建参数
+        YuanQiCompletionRequest chatCompletion = YuanQiCompletionRequest
+                .builder()
+                .messages(Collections.singletonList(
+                        
+                        message
+                        
+                        ))
+                .userId("rodneyxiong")
+                .assistantId("mmbnqMnLdYz0")
+                .stream(false)
+                .build();
+        // 2. 发起请求
+        String yuanQiCompletionResponse = yuanQiSession.completionsString(chatCompletion);
+        // 3. 解析结果
+        log.info("消息: {}", yuanQiCompletionResponse);
+    }
 }

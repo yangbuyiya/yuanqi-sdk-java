@@ -1,31 +1,53 @@
+[//]: # (<h1>)
+
+[//]: # (<p align="center">)
+
+[//]: # (	<strong>愿世界和平</strong>)
+
+[//]: # (</p>)
+
+[//]: # (</h1>)
+
+[//]: # ()
+[//]: # (<p align="center">)
+
+[//]: # (    铭记苦难，心系巴勒斯坦，哀悼逝者。)
+
+[//]: # (    <br>中国屹立东方，自强自立，方能更好地守护和平，担当国际责任，为世界公正贡献力量。)
+
+[//]: # (    <br>愿悲剧不再重演，和平永驻人间。)
+
+[//]: # (    <br />)
+
+[//]: # (    <img src="./img/img.png" alt="Easy-Manager-Tool" width="75" style="align-content: center" /> )
+
+[//]: # (    <span>Peace And Love</span>)
+
+[//]: # (    <img src="./img/img_1.png" alt="Easy-Manager-Tool" width="99" style="align-content: center" />)
+
+[//]: # (</p>)
+
+[//]: # ()
+[//]: # (<br />)
+
+[//]: # (<br />)
+
+[//]: # (<br />)
+
+[//]: # (<br />)
+
+[//]: # (<br />)
+
+[//]: # (<br />)
+
+[//]: # ()
+
 <h1>
 <p align="center">
-	<strong>愿世界和平</strong>
-</p>
-
-</h1>
-
-<p align="center">
-    铭记苦难，心系巴勒斯坦，哀悼逝者。
-    <br>中国屹立东方，自强自立，方能更好地守护和平，担当国际责任，为世界公正贡献力量。
-    <br>愿悲剧不再重演，和平永驻人间。
-    <br />
-    <img src="./img/img.png" alt="Easy-Manager-Tool" width="75" style="align-content: center" /> 
-    <span>peace & love</span>
-    <img src="./img/img_1.png" alt="Easy-Manager-Tool" width="99" style="align-content: center" />
-</p>
-
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
-
-<p align="center">
 	<strong>腾讯元器SDK-JAVA</strong>
-<br />
+</p>
+</h1>
+<p align="center">
     腾讯元器智能体 API Java SDK 是对腾讯元器智能体的API进行了封装，方便Java开发者接入系统调用。
 </p>
 
@@ -216,8 +238,8 @@ public class YuanQiSDKConfigProperties {
    */
   private String apiHost;
   /**
-   * 可以申请 sk-***
-   */
+  * 智能体API KEY 必须填写
+  */
   private String apiKey;
 
   private String assistantId;

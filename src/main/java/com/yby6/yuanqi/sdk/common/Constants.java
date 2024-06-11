@@ -42,16 +42,11 @@ public class Constants {
 
     /**
      * 角色
-     * 官网支持的请求角色类型；system、user、assistant
-     * <a href="https://platform.openai.com/docs/guides/chat/introduction">...</a>
+     * 官网支持的请求角色类型；user、assistant
      */
     @Getter
     public enum Role {
 
-        /**
-         * 系统
-         */
-        SYSTEM("system"),
         /**
          * 使用者
          */
@@ -87,7 +82,8 @@ public class Constants {
         /**
          * 默认文本问答类型
          */
-        TEXT("text")
+        TEXT("text"),
+        IMG("file_url")
         ;
 
         /**
