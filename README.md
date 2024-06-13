@@ -42,14 +42,12 @@
 
 [//]: # ()
 
-<h1>
-<p align="center">
+<h1 align="center">
 	<strong>腾讯元器SDK-JAVA</strong>
-</p>
 </h1>
-<p align="center">
+<h3 align="center">
     腾讯元器智能体 API Java SDK 是对腾讯元器智能体的API进行了封装，方便Java开发者接入系统调用。
-</p>
+</h3>
 
 
 
