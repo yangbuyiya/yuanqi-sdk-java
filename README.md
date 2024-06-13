@@ -55,6 +55,26 @@
 
 # 接入方式 
 
+## 引入依赖
+### Maven
+```yaml
+
+<dependency>
+    <groupId>com.yby6.yuanqi</groupId>
+    <artifactId>yuanqi-sdk-java</artifactId>
+    <version>1.2</version>
+</dependency>
+
+```
+### Gradle
+```yaml
+
+implementation group: 'com.yby6.yuanqi', name: 'yuanqi-sdk-java', version: '1.2'
+
+```
+
+## 单元测试
+
 ```java
 
 @Slf4j
@@ -224,7 +244,7 @@ public class YuanQIAPI {
 ```
 
 
-# SpringBoot
+# SpringBoot 引用
 
 ```java
 
