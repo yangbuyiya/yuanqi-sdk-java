@@ -8,9 +8,11 @@
 
 package com.yby6.yuanqi.sdk.interceptor;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.ContentType;
 import cn.hutool.http.Header;
 import com.yby6.yuanqi.sdk.common.Constants;
+import com.yby6.yuanqi.sdk.session.ApiKeyProvider;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +58,8 @@ public class YuanQiInterceptor implements Interceptor {
 
         // 2. 如果调用者传递了apiKey，则使用调用者传递的apiKey
         String apiKeyByUser = original.header("apiKey");
-        String apiKey = null == apiKeyByUser || Constants.NULL.equals(apiKeyByUser) ? apiKeyBySystem : apiKeyByUser;
+        // 如果动态设置了apiKey，则使用动态设置的apiKey 否则使用系统提供的apiKey
+        String apiKey = null == apiKeyByUser || Constants.NULL.equals(apiKeyByUser) ? StrUtil.isNotEmpty(ApiKeyProvider.getApiKey()) ? ApiKeyProvider.getApiKey() : apiKeyBySystem : apiKeyByUser;
         apiKey = apiKey.startsWith(Constants.BEARER) ? apiKey : Constants.BEARER.concat(apiKey);
 
         // 3. 构建 Request

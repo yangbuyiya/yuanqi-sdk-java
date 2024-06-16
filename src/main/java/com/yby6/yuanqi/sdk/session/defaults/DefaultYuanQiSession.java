@@ -78,8 +78,8 @@ public class DefaultYuanQiSession implements YuanQiSession {
      */
     @Override
     public String completionsString(YuanQiCompletionRequest yuanqiCompletionRequest) {
-       StringBuilder builder = new StringBuilder();
-       YuanQiCompletionResponse yuanQiCompletionResponse = this.yuanQiApi.completions(yuanqiCompletionRequest).blockingGet();
+        StringBuilder builder = new StringBuilder();
+        YuanQiCompletionResponse yuanQiCompletionResponse = this.yuanQiApi.completions(yuanqiCompletionRequest).blockingGet();
         for (ChatChoice choice : yuanQiCompletionResponse.getChoices()) {
             final String content = choice.getMessage().getContent();
             builder.append(content);
@@ -106,7 +106,7 @@ public class DefaultYuanQiSession implements YuanQiSession {
         CompletableFuture<String> future = new CompletableFuture<>();
         StringBuffer dataBuffer = new StringBuffer();
 
-        chatCompletions(chatCompletionRequest, new EventSourceListener(){
+        chatCompletions(chatCompletionRequest, new EventSourceListener() {
             @Override
             public void onEvent(EventSource eventSource, String id, String type, String data) {
                 if ("[DONE]".equalsIgnoreCase(data)) {
@@ -162,14 +162,13 @@ public class DefaultYuanQiSession implements YuanQiSession {
     public EventSource chatCompletions(String apiHostByUser, String apiKeyByUser, YuanQiCompletionRequest yuanqiCompletionRequest, EventSourceListener eventSourceListener) throws JsonProcessingException {
         // 当前为流式模式，如果为false则抛出异常
         Assert.isTrue(yuanqiCompletionRequest.getStream(), "illegal parameter stream is false!");
-        
+
         // 动态设置 Host、Key，便于用户传递自己的信息
         String apiHost = Constants.NULL.equals(apiHostByUser) ? yuanQiConfiguration.getApiHost() : apiHostByUser;
         String apiKey = Constants.NULL.equals(apiKeyByUser) ? yuanQiConfiguration.getApiKey() : apiKeyByUser;
 
         // 构建请求信息
         Request request = new Request.Builder()
-                // url: https://yuanqi.tencent.com/openapi/v1/agent/chat/completions -
                 // 通过 IYuanQiApi 配置的 POST 接口，用这样的方式从统一的地方获取配置信息
                 .url(apiHost.concat(IYuanQiApi.v1_chat_completions))
                 .addHeader(Constants.AUTHORIZATION, apiKey)

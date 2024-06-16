@@ -62,18 +62,18 @@ public interface YuanQiSession {
      * @throws JsonProcessingException json处理异常
      */
     CompletableFuture<String> chatCompletions(YuanQiCompletionRequest chatCompletionRequest) throws InterruptedException, JsonProcessingException;
-    
+
     /**
      * 简单问答 - 流式 - 自定义api
      *
-     * @param apiHostByUser           用户提供api主机
-     * @param apiKeyByUser            用户提供api密钥
+     * @param apiHost                  用户提供api主机
+     * @param apiKey                  用户提供api密钥
      * @param yuanqiCompletionRequest 元气完成请求
      * @param eventSourceListener     事件源侦听器
      * @return {@link EventSource}
      * @throws JsonProcessingException json处理异常
      */
-    EventSource chatCompletions(String apiHostByUser, String apiKeyByUser, YuanQiCompletionRequest yuanqiCompletionRequest, EventSourceListener eventSourceListener) throws JsonProcessingException;
+    EventSource chatCompletions(String apiHost, String apiKey, YuanQiCompletionRequest yuanqiCompletionRequest, EventSourceListener eventSourceListener) throws JsonProcessingException;
 
 
 }
