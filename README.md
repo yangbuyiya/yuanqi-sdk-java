@@ -49,7 +49,7 @@
     腾讯元器智能体 API Java SDK 是对腾讯元器智能体的API进行了封装，方便Java开发者接入系统调用。
 </h3>
 
-
+<div align="center"><b>您是第<img src="https://profile-counter.glitch.me/yuanqi-sdk-java/count.svg"></img>个访问YuanQi-Sdk-Java~</b></div>
 
 # 接入方式 
 
